@@ -1,0 +1,60 @@
+Zekâ (Intelligence) kavramı genel olarak hangi yetenekleri kapsar?,"Öğrenme, problem çözme ve yeni durumlara uyum sağlama yeteneklerini kapsar."
+İnsan zekâsını yapay zekâdan ayıran temel 'bağlam' unsurları nelerdir?,"Sosyal bağlam, değerler, duygular ve doğrudan yaşam tecrübesidir."
+Yapay Zekâ (AI) teriminin en temel tanımı nedir?,Normalde insan zekâsı gerektiren görevleri yerine getiren bilgisayar sistemleridir.
+Yapay zekâ sistemlerinin çıktı olarak üretebileceği temel sonuç türleri nelerdir?,"Tahminler, öneriler, sınıflandırmalar ve içerik üretimi gibi sonuçlar üretir."
+Üretken Yapay Zekâ (Generative AI) nedir?,"Kullanıcı girdilerine dayanarak metin, görsel veya ses gibi yeni içerikler üreten sistemlerdir."
+YZ tarihsel gelişiminde 1950 yılı neden bir dönüm noktasıdır?,Alan Turing'in makinelerin düşünme kapasitesini tartışmaya açan çalışmasını yayımlamasıdır.
+YZ terimi resmi olarak hangi etkinlikte ve yılda akademik bir alan olarak tanımlanmıştır?,1956 yılındaki Dartmouth Atölyesi'nde (Dartmouth Workshop) tanımlanmıştır.
+2010'lu yıllarda yapay zekâ patlamasını tetikleyen üç temel faktör nedir?,"Güçlü bilgisayarlar, devasa veri miktarı ve yeni algoritmaların geliştirilmesidir."
+Turing Testi'nin temel amacı nedir?,"Bir makinenin insan iletişimini, sorgulayıcıyı yanıltacak kadar başarılı taklit edip edemeyeceğini ölçmektir."
+Turing Testi'ni geçen bir makine hakkında ne söylenemez?,"Bu test iletişim başarısını ölçer, makinenin bilinçli olduğunu veya gerçekten düşündüğünü kanıtlamaz."
+YZ değerlendirme sürecinde (5 Adımlık Teşhis) ilk adım nedir?,Görevin tanımlanması (Sistem tam olarak ne yapıyor?) adımıdır.
+YZ değerlendirme sürecinin 4. adımı olan 'İnsan İcrasıyla Karşılaştırma' neyi sorgular?,"Yapılan görevin normalde insan bilişiyle (özetleme, çeviri vb.) ilişkili olup olmadığını sorgular."
+Basit otomasyon (Automation) ile yapay zekâ arasındaki temel fark nedir?,"Otomasyon katı kuralları izlerken, YZ veri yorumlama ve tahmin gibi bilişsel görevler yapar."
+Basit otomasyona örnek olarak hangi günlük araç verilebilir?,Önceden ayarlanmış saatte çalan bir alarm saati örnektir.
+YZ'nin hukuk alanındaki kullanımına bir örnek veriniz.,Kapsamlı hukuk metinlerinin analiz edilmesi ve sınıflandırılmasıdır.
+YZ'nin sağlık alanındaki temel işlevi nedir?,Tıbbi görüntülerdeki anormallikleri ve örüntüleri tespit ederek teşhise yardımcı olmaktır.
+YZ'nin mühendislikteki kullanım amacı nedir?,Sistem arızalarını veya hata olasılıklarını önceden tahmin etmektir.
+Doğru kabul edilen 'Yapay zekâ insan beyninin dijital bir kopyasıdır' ifadesinin gerçeği nedir?,"YZ sadece insan benzeri çıktıları taklit eder, insan düşünme süreçlerini kopyalamaz."
+YZ sistemlerinin akıcı ve özgüvenli cevaplar vermesi her zaman ne anlama gelmez?,Cevabın her zaman doğru olduğu anlamına gelmez; YZ 'halüsinasyon' görebilir.
+Yapay zekâ okuryazarlığının ilk ve en önemli adımı nedir?,Sistemin neleri yapabildiğini ve neleri yapamadığını tam olarak anlamaktır.
+Makine Öğrenmesi (Machine Learning) nedir?,Bilgisayarların açıkça programlanmadan veriler üzerinden deneyim kazanarak performanslarını iyileştirme sürecidir.
+Algoritma (Algorithm) kavramının günlük hayattaki en iyi benzerliği nedir?,Belirli bir görevi tamamlamak için izlenen adım adım talimatlar bütünü olan yemek tarifidir.
+Örüntü (Pattern) kavramı yapay zekâ için ne ifade eder?,"Veri setleri içinde sürekli tekrar eden, tahmin edilebilir ilişki veya düzenliliklerdir."
+Gözetimli Öğrenme (Supervised Learning) yönteminde kullanılan verinin türü nedir?,Hem soru hem cevabı içeren 'etiketli' (labeled) veridir.
+Gözetimsiz Öğrenme (Unsupervised Learning) sisteminin temel hedefi nedir?,"Etiketsiz veriler içindeki gizli yapıları, kümeleri veya ilişkileri bağımsızca keşfetmektir."
+Makine öğrenmesi sürecinde insanın rolü Gözetimli Öğrenme'de nasıldır?,Sistemi doğru cevaplarla yönlendiren bir 'öğretmen' rolündedir.
+Gözetimsiz Öğrenme'de insanın rolü nedir?,Sistemin bağımsız keşiflerini gözlemleyen ve inceleyen bir 'gözlemci' rolündedir.
+Makine öğrenmesinin ilk adımı olan veri toplama neden kritiktir?,Sistemin analiz edeceği temel materyal kalitesizse çıktılar da hatalı veya yanlı olur.
+Model kavramı yapay zekâda neyi temsil eder?,Algoritmanın veriden öğrendiği örüntüler sonucu oluşan operasyonel 'matematiksel beyin'dir.
+Tahmin (Prediction) nedir?,Eğitilmiş bir modelin yeni ve daha önce görmediği verilere dair ürettiği olasılıksal sonuçtur.
+Kara Kutu (Black Box) fenomeni nedir?,Karmaşık bir YZ modelinin bir karara varırken izlediği yolu insanların tam olarak izleyememesidir.
+Yapay zekâ araçlarının çalışma mantığına dair 'Altın Kural' nedir?,"'Veri yoksa, öğrenme de yoktur' kuralıdır."
+YZ sistemleri mantıksal doğruluktan ziyade neye göre çalışır?,Veriler arasındaki matematiksel olasılıklara göre çalışır.
+İstem (Prompt) nedir?,YZ modeline belirli bir görevi yapması için verilen talimat veya bağlamdır.
+Claude için 'Beceriler' (Skills) neyi ifade eder?,"YZ aracına belirli iş akışlarını öğreten, yeniden kullanılabilir markdown talimat klasörleridir."
+Bir beceri klasörünün kalbi olan ana dosya hangisidir?,`skill.md` (veya `skill.mmd`) isimli markdown dosyasıdır.
+Beceri dosyasındaki 'YAML front matter' bölümünün işlevi nedir?,Claude'un beceriyi ne zaman ve neden kullanması gerektiğini anlamasını sağlayan mikro özet bilgisidir.
+Beceriler ve MCP (Model Context Protocol) arasındaki mutfak analojisi nedir?,"MCP'ler yemek yapan 'eller', beceriler ise bu ellerin izlediği 'tarifler'dir."
+Sıralı İş Akışı (Sequential Workflow) beceri deseni nasıl çalışır?,Adımların belirli bir sırada (adım 1'den adım 4'e) ve birbirine bağlı ilerlediği doğrusal yapıdır.
+Beceri açıklamasında 'Kebab-case' kullanımı neyi ifade eder?,Küçük harflerle ve kelimeler arası tire ( - ) ile yazılmış isimlendirme formatıdır (örneğin: `veri-analiz-becerisi`).
+Beceri açıklamasına eklenen 'tetikleyici kelimeler' (trigger words) neden önemlidir?,Claude'un ilgili beceriyi kullanması gerektiğini anlaması için sunulan anahtar ipuçlarıdır.
+YZ destekli 'Akademik Asistan' kullanımına bir örnek veriniz.,Ders notlarını özetlemek veya karmaşık metinleri basitleştirmek örnektir.
+Prompt oluştururken rol atamak (assigning roles) neden kullanılır?,YZ'nin cevabı belirli bir perspektiften (örneğin: 'Bir uzman gibi açıkla') vermesini sağlamak içindir.
+YZ'de 'Halüsinasyon' (Hallucination) problemi nedir?,Sistemin gerçekte olmayan bilgileri son derece ikna edici bir dille uydurmasıdır.
+Veri Gizliliği (Data Privacy) açısından YZ kullanımında dikkat edilmesi gereken en temel kural nedir?,Sisteme hassas kişisel verilerin veya mahrem bilgilerin girilmemesidir.
+Algoritmik Önyargı (Algorithmic Bias) nedir?,Eğitim verilerindeki adaletsizliklerin YZ kararlarına ayrımcılık olarak yansımasıdır.
+Görsel Okuryazarlık (Visual Literacy) bağlamında YZ ne için kullanılır?,Sunumlar için görsel üretimi veya sahte içeriklerin (deepfake) analiz edilmesi içindir.
+HCI (Human-Computer Interaction) nedir?,İnsan ve bilgisayar sistemleri arasındaki etkileşim ve arayüz prensipleridir.
+YZ sistemlerinin 'olasılıksal' (probabilistic) yapısı ne anlama gelir?,Bir sonraki adımı kesin bir kuraldan ziyade en yüksek matematiksel ihtimale göre belirlemesidir.
+Beceri oluştururken 'Kritik Kural' (Crucial Rule) nedir?,YZ'nin ürettiği her çıktının sadece bir çıktı olduğu ve bilimsel kanıt olarak doğrudan kabul edilmemesi gerektiğidir.
+Beceri test etme sürecinde 'Tetikleme Testi' (Triggering Test) nasıl yapılır?,Yepyeni bir terminal oturumu açılarak becerinin doğru durumda devreye girip girmediği kontrol edilir.
+Meta-beceri olan 'Beceri Oluşturucu' (Skill Creator) ne işe yarar?,Claude'a yeni bir beceri dosyası oluşturması için gereken prosedürü öğretir.
+YZ destekli dil öğreniminde yapılabilecek bir aktivite nedir?,Yabancı dil pratiği yapmak veya yazım hatalarının analizini istemektir.
+YZ çıktılarını değerlendirirken 'kaynak kontrolü' neden gereklidir?,Sistemin uydurduğu (halüsinasyon) bilgileri gerçek kaynaklardan ayırt etmek için gereklidir.
+Modern YZ'nin 'aniden ortaya çıkmadığını' gösteren temel gerçek nedir?,Onlarca yıllık dinamik bir tarihsel gelişimin sonucu olmasıdır.
+YZ becerilerinde 'Olay Tabanlı Tetikleme'ye (Event-based trigger) bir örnek veriniz.,Bir CSV dosyası yüklendiğinde analiz becerisinin otomatik devreye girmesidir.
+Beceri tasarımında 'Kademeli İfşa' (Progressive Disclosure) neden kullanılır?,Bağlam penceresini (context window) verimli kullanmak ve sadece gerekli olduğunda tam bilgiyi yüklemek içindir.
+Prompt yazarken kısıt (constraint) vermek ne demektir?,Cevabın uzunluğu veya formatı gibi belirli sınırlamalar (örneğin: '100 kelimeyi geçme') getirmektir.
+İnsan ve YZ arasındaki görev paylaşımında 'İnsanların Üstün Olduğu' alan hangisidir?,Düşük veri hacmi ve yüksek duygusal/etik karmaşıklık içeren alanlardır.
+YZ'nin baskın olduğu 'Yüksek Veri / Düşük Duygu' alanına bir örnek veriniz.,Binlerce veri noktasının hızla incelenmesi ve sınıflandırılmasıdır.
