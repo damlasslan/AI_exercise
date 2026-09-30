@@ -17,8 +17,8 @@
     --accent-soft: #e7ecff;
     --good: #2b8a3e;
     --good-soft: #e3f4e6;
-    --again: #c2410c;
-    --again-soft: #fdeee4;
+    --bad: #c92a2a;
+    --bad-soft: #fdeaea;
     --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
   }
   @media (prefers-color-scheme: dark) {
@@ -32,8 +32,8 @@
       --accent-soft: #252c47;
       --good: #6fcf86;
       --good-soft: #1d3324;
-      --again: #f59e6b;
-      --again-soft: #3a2519;
+      --bad: #ff8787;
+      --bad-soft: #3a1f1f;
       --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
     }
   }
@@ -53,64 +53,75 @@
   h1 { font-size: 1.4rem; margin: 0 0 4px; letter-spacing: -0.01em; }
   .sub { color: var(--muted); font-size: .92rem; margin: 0; }
 
-  .stats {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin: 18px 0 10px; font-size: .85rem;
-  }
+  .stats { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 10px; font-size: .85rem; }
   .pill {
     padding: 5px 10px; border-radius: 999px;
     background: var(--surface); border: 1px solid var(--line); color: var(--muted);
   }
   .pill b { color: var(--text); font-weight: 600; }
   .pill.good b { color: var(--good); }
-  .pill.again b { color: var(--again); }
+  .pill.bad b { color: var(--bad); }
 
   .bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 18px; }
   .bar > div { height: 100%; width: 0; background: var(--good); transition: width .3s ease; }
 
-  .scene { perspective: 1400px; }
   .card {
-    position: relative; width: 100%; min-height: 300px;
-    transform-style: preserve-3d; transition: transform .5s cubic-bezier(.2,.7,.2,1);
-    cursor: pointer; outline: none;
+    position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); padding: 40px 24px 28px; text-align: center;
   }
-  .card.flipped { transform: rotateY(180deg); }
-  .face {
-    position: absolute; inset: 0;
-    backface-visibility: hidden; -webkit-backface-visibility: hidden;
-    background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
-    box-shadow: var(--shadow);
-    padding: 28px 24px 44px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    text-align: center;
-  }
-  .face.back { transform: rotateY(180deg); background: var(--accent-soft); border-color: transparent; }
   .label {
     position: absolute; top: 14px; left: 18px;
     font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
   }
   .num { position: absolute; top: 14px; right: 18px; font-size: .78rem; color: var(--muted); }
-  .hint { position: absolute; bottom: 14px; font-size: .78rem; color: var(--muted); }
-  .q { font-size: 1.3rem; font-weight: 600; line-height: 1.4; }
-  .a { font-size: 1.15rem; line-height: 1.5; }
-  .card:focus-visible .face { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .q { font-size: 1.25rem; font-weight: 600; line-height: 1.45; }
 
-  .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
-  button {
-    font: inherit; font-size: .95rem; font-weight: 600;
-    border: 1px solid var(--line); background: var(--surface); color: var(--text);
-    padding: 12px 14px; border-radius: 12px; cursor: pointer;
-    transition: transform .08s ease, background .15s ease;
+  .options { display: grid; gap: 10px; margin-top: 16px; }
+  .opt {
+    display: flex; gap: 12px; align-items: flex-start; text-align: left;
+    font: inherit; font-size: 1rem; line-height: 1.45; color: var(--text);
+    background: var(--surface); border: 2px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; cursor: pointer; width: 100%;
+    transition: border-color .15s ease, background .15s ease, transform .08s ease;
   }
-  button:active { transform: scale(.98); }
-  button:disabled { opacity: .4; cursor: default; }
-  .btn-again { background: var(--again-soft); color: var(--again); border-color: transparent; }
-  .btn-good { background: var(--good-soft); color: var(--good); border-color: transparent; }
-  .btn-flip { grid-column: 1 / -1; background: var(--accent); color: #fff; border-color: transparent; }
-  @media (prefers-color-scheme: dark) { .btn-flip { color: #10152b; } }
+  .opt:hover:not(:disabled) { border-color: var(--accent); }
+  .opt:active:not(:disabled) { transform: scale(.99); }
+  .opt:disabled { cursor: default; }
+  .opt .key {
+    flex: none; width: 26px; height: 26px; border-radius: 50%;
+    display: grid; place-items: center; font-size: .8rem; font-weight: 700;
+    background: var(--accent-soft); color: var(--accent);
+  }
+  .opt.correct { border-color: var(--good); background: var(--good-soft); }
+  .opt.correct .key { background: var(--good); color: var(--surface); }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .opt.wrong .key { background: var(--bad); color: var(--surface); }
+  .opt.dim { opacity: .55; }
 
-  .nav { display: flex; justify-content: space-between; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
-  .nav button { font-weight: 500; font-size: .85rem; padding: 8px 12px; }
+  .feedback {
+    display: none; margin-top: 14px; border-radius: 12px; padding: 14px 16px; line-height: 1.5;
+    animation: pop .2s ease;
+  }
+  .feedback.show { display: block; }
+  .feedback.good { background: var(--good-soft); color: var(--good); }
+  .feedback.bad { background: var(--bad-soft); }
+  .feedback .title { font-weight: 700; font-size: 1.05rem; margin-bottom: 2px; }
+  .feedback.bad .title { color: var(--bad); }
+  .feedback.bad .why { color: var(--text); }
+  @keyframes pop { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+  button.primary {
+    font: inherit; font-size: .95rem; font-weight: 600; width: 100%; margin-top: 14px;
+    border: none; background: var(--accent); color: #fff; padding: 13px 14px; border-radius: 12px; cursor: pointer;
+  }
+  @media (prefers-color-scheme: dark) { button.primary { color: #10152b; } }
+  button.primary[hidden] { display: none; }
+
+  .nav { display: flex; justify-content: flex-end; margin-top: 14px; }
+  .nav button {
+    font: inherit; font-size: .85rem; font-weight: 500; color: var(--text);
+    border: 1px solid var(--line); background: var(--surface); padding: 8px 12px; border-radius: 10px; cursor: pointer;
+  }
 
   .keys { margin-top: 18px; font-size: .78rem; color: var(--muted); text-align: center; }
   kbd {
@@ -124,14 +135,13 @@
     border-radius: 16px; padding: 36px 24px; box-shadow: var(--shadow);
   }
   .done h2 { margin: 0 0 8px; }
-  .done p { color: var(--muted); margin: 0 0 20px; }
-  .done .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .error { color: var(--again); }
+  .done p { color: var(--muted); margin: 0 0 6px; }
+  .done .score { font-size: 2.4rem; font-weight: 700; color: var(--good); margin: 8px 0; }
+  .error { color: var(--bad); }
 
   @media (max-width: 480px) {
-    .card { min-height: 260px; }
-    .q { font-size: 1.12rem; }
-    .a { font-size: 1.02rem; }
+    .q { font-size: 1.1rem; }
+    .opt { font-size: .95rem; padding: 12px 14px; }
   }
 </style>
 </head>
@@ -139,57 +149,44 @@
 <main>
   <header>
     <h1>Yapay Zekâ Kartları</h1>
-    <p class="sub">Soruyu oku, cevabı düşün, kartı çevir. Bildiklerin desteden çıkar, bilmediklerin tekrar gelir.</p>
+    <p class="sub">Her soruda iki cevap var, doğru olanı seç. Yanlış bildiğin sorular birkaç soru sonra tekrar gelir.</p>
   </header>
 
   <div class="stats">
     <span class="pill">Kalan <b id="sLeft">0</b></span>
-    <span class="pill good">Biliyorum <b id="sGood">0</b></span>
-    <span class="pill again">Tekrar <b id="sAgain">0</b></span>
+    <span class="pill good">Doğru <b id="sGood">0</b></span>
+    <span class="pill bad">Yanlış <b id="sBad">0</b></span>
     <span class="pill">Toplam <b id="sTotal">0</b></span>
   </div>
   <div class="bar"><div id="bar"></div></div>
 
   <section id="study">
-    <div class="scene">
-      <div class="card" id="card" tabindex="0" role="button" aria-label="Kartı çevir">
-        <div class="face front">
-          <span class="label">Soru</span><span class="num" id="numF"></span>
-          <div class="q" id="q">Kartlar yükleniyor…</div>
-          <span class="hint">Cevabı görmek için dokun</span>
-        </div>
-        <div class="face back">
-          <span class="label">Cevap</span><span class="num" id="numB"></span>
-          <div class="a" id="a"></div>
-        </div>
-      </div>
+    <div class="card">
+      <span class="label">Soru</span><span class="num" id="num"></span>
+      <div class="q" id="q">Sorular yükleniyor…</div>
     </div>
 
-    <div class="actions">
-      <button class="btn-flip" id="flipBtn">Cevabı göster</button>
-      <button class="btn-again" id="againBtn" disabled>Tekrar sor</button>
-      <button class="btn-good" id="goodBtn" disabled>Biliyorum</button>
-    </div>
+    <div class="options" id="options"></div>
 
-    <div class="nav">
-      <button id="shuffleBtn">Karıştır</button>
-      <button id="resetBtn">Baştan başla</button>
-    </div>
-    <p class="keys"><kbd>Boşluk</kbd> çevir · <kbd>1</kbd> tekrar sor · <kbd>2</kbd> biliyorum</p>
+    <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <button class="primary" id="nextBtn" hidden>Sonraki soru →</button>
+
+    <div class="nav"><button id="resetBtn">Baştan başla</button></div>
+    <p class="keys"><kbd>A</kbd> / <kbd>B</kbd> şık seç · <kbd>Enter</kbd> sonraki soru</p>
   </section>
 
   <section class="done" id="done">
-    <h2>Tebrikler! 🎉</h2>
+    <h2>Tebrikler, bitirdin! 🎉</h2>
+    <p>İlk denemede doğru bildiğin sorular</p>
+    <div class="score" id="score"></div>
     <p id="doneText"></p>
-    <div class="row">
-      <button class="btn-flip" id="restartBtn" style="grid-column:auto">Tekrar çalış</button>
-    </div>
+    <button class="primary" id="restartBtn" style="max-width:260px">Tekrar çöz</button>
   </section>
 </main>
 
 <script>
-const STORE = "yz-kartlar-v1";
-let cards = [], queue = [], good = 0, again = 0, flipped = false;
+const STORE = "yz-test-v1";
+let items = [], queue = [], good = 0, bad = 0, missed = [], answered = false;
 
 const $ = id => document.getElementById(id);
 
@@ -208,8 +205,9 @@ function parseCSV(text) {
     } else field += c;
   }
   if (field || row.length) { row.push(field); rows.push(row); }
-  return rows.filter(r => r.length >= 2 && r[0].trim())
-             .map(r => ({ q: r[0].trim(), a: r[1].trim() }));
+  return rows
+    .filter(r => r.length >= 4 && r[0].trim() && r[0].trim().toLowerCase() !== "soru")
+    .map(r => ({ q: r[0].trim(), right: r[1].trim(), wrong: r[2].trim(), why: r[3].trim() }));
 }
 
 function shuffle(arr) {
@@ -220,89 +218,134 @@ function shuffle(arr) {
 }
 
 function save() {
-  try { localStorage.setItem(STORE, JSON.stringify({ n: cards.length, queue, good, again })); } catch (e) {}
+  try { localStorage.setItem(STORE, JSON.stringify({ n: items.length, queue, good, bad, missed })); } catch (e) {}
 }
 function load() {
   try {
     const s = JSON.parse(localStorage.getItem(STORE));
-    if (s && s.n === cards.length && Array.isArray(s.queue)) { queue = s.queue; good = s.good; again = s.again; return true; }
+    if (s && s.n === items.length && Array.isArray(s.queue)) {
+      queue = s.queue; good = s.good; bad = s.bad; missed = s.missed || []; return true;
+    }
   } catch (e) {}
   return false;
 }
 
-function start(doShuffle) {
-  queue = cards.map((_, i) => i);
-  if (doShuffle) shuffle(queue);
-  good = 0; again = 0;
+function start() {
+  queue = shuffle(items.map((_, i) => i));
+  good = 0; bad = 0; missed = [];
   save(); render();
 }
 
-function setFlip(v) {
-  flipped = v;
-  $("card").classList.toggle("flipped", v);
-  $("flipBtn").textContent = v ? "Soruya dön" : "Cevabı göster";
-  $("againBtn").disabled = $("goodBtn").disabled = !v;
+function stats() {
+  const total = items.length;
+  $("sLeft").textContent = queue.length;
+  $("sGood").textContent = good;
+  $("sBad").textContent = bad;
+  $("sTotal").textContent = total;
+  $("bar").style.width = total ? ((total - queue.length) / total * 100) + "%" : "0";
 }
 
 function render() {
-  const total = cards.length;
-  $("sLeft").textContent = queue.length;
-  $("sGood").textContent = good;
-  $("sAgain").textContent = again;
-  $("sTotal").textContent = total;
-  $("bar").style.width = total ? ((total - queue.length) / total * 100) + "%" : "0";
+  stats();
+  answered = false;
+  $("feedback").className = "feedback";
+  $("nextBtn").hidden = true;
 
   if (!queue.length) {
+    const total = items.length, first = total - missed.length;
     $("study").style.display = "none";
     $("done").style.display = "block";
-    $("doneText").textContent = `${total} kartın hepsini tamamladın. Toplam ${again} kez "tekrar sor" dedin.`;
+    $("score").textContent = `${first} / ${total}`;
+    $("doneText").textContent = missed.length
+      ? `${missed.length} soruyu ilk seferde kaçırdın ama sonunda hepsini doğru cevapladın.`
+      : "Hepsini ilk denemede bildin, harika!";
     return;
   }
   $("study").style.display = "";
   $("done").style.display = "none";
-  // Reset flip without animating so the next answer isn't revealed mid-turn
-  const card = $("card");
-  card.style.transition = "none"; setFlip(false); void card.offsetWidth; card.style.transition = "";
-  const c = cards[queue[0]], n = `#${queue[0] + 1}`;
-  $("q").textContent = c.q; $("a").textContent = c.a;
-  $("numF").textContent = n; $("numB").textContent = n;
+
+  const idx = queue[0], it = items[idx];
+  $("q").textContent = it.q;
+  $("num").textContent = `#${idx + 1}`;
+
+  const opts = shuffle([{ text: it.right, ok: true }, { text: it.wrong, ok: false }]);
+  const box = $("options");
+  box.innerHTML = "";
+  opts.forEach((o, i) => {
+    const b = document.createElement("button");
+    b.className = "opt";
+    b.dataset.ok = o.ok ? "1" : "0";
+    const k = document.createElement("span"); k.className = "key"; k.textContent = "AB"[i];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.append(k, t);
+    b.addEventListener("click", () => choose(b));
+    box.appendChild(b);
+  });
 }
 
-function answer(knew) {
-  if (!flipped || !queue.length) return;
-  const idx = queue.shift();
-  if (knew) good++;
-  else {
-    again++;
-    // Bring it back a few cards later
+function choose(btn) {
+  if (answered) return;
+  answered = true;
+  const idx = queue[0], it = items[idx], ok = btn.dataset.ok === "1";
+  const buttons = [...$("options").children];
+  buttons.forEach(b => {
+    b.disabled = true;
+    if (b.dataset.ok === "1") b.classList.add("correct");
+    else if (b === btn) b.classList.add("wrong");
+    else b.classList.add("dim");
+  });
+
+  const fb = $("feedback");
+  fb.innerHTML = "";
+  const title = document.createElement("div"); title.className = "title";
+  if (ok) {
+    fb.className = "feedback show good";
+    title.textContent = "✓ Doğru!";
+    fb.append(title);
+    good++;
+    queue.shift();
+  } else {
+    fb.className = "feedback show bad";
+    title.textContent = "✗ Yanlış";
+    const why = document.createElement("div"); why.className = "why";
+    why.textContent = "Neden yanlış: " + it.why;
+    fb.append(title, why);
+    bad++;
+    if (!missed.includes(idx)) missed.push(idx);
+    queue.shift();
+    // Soruyu birkaç soru sonra tekrar sor
     const pos = Math.min(queue.length, 3 + Math.floor(Math.random() * 3));
     queue.splice(pos, 0, idx);
   }
-  save(); render();
+  stats();
+  save();
+  $("nextBtn").hidden = false;
+  $("nextBtn").focus();
 }
 
-$("card").addEventListener("click", () => queue.length && setFlip(!flipped));
-$("flipBtn").addEventListener("click", () => queue.length && setFlip(!flipped));
-$("againBtn").addEventListener("click", () => answer(false));
-$("goodBtn").addEventListener("click", () => answer(true));
-$("shuffleBtn").addEventListener("click", () => { shuffle(queue); save(); render(); });
-$("resetBtn").addEventListener("click", () => { if (confirm("İlerlemen sıfırlansın mı?")) start(true); });
-$("restartBtn").addEventListener("click", () => start(true));
+$("nextBtn").addEventListener("click", render);
+$("resetBtn").addEventListener("click", () => { if (confirm("İlerlemen sıfırlansın mı?")) start(); });
+$("restartBtn").addEventListener("click", start);
 document.addEventListener("keydown", e => {
-  if (e.target.tagName === "BUTTON" && (e.key === " " || e.key === "Enter")) return;
-  if (e.key === " " || e.key === "Enter") { e.preventDefault(); queue.length && setFlip(!flipped); }
-  else if (e.key === "1") answer(false);
-  else if (e.key === "2") answer(true);
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (!answered && (k === "a" || k === "b" || k === "1" || k === "2")) {
+    const i = (k === "a" || k === "1") ? 0 : 1;
+    const b = $("options").children[i];
+    if (b) choose(b);
+  } else if (answered && e.key === "Enter" && e.target !== $("nextBtn")) {
+    e.preventDefault(); render();
+  }
 });
 
-fetch("flashcards.csv")
+fetch("sorular.csv")
   .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
   .then(t => {
-    cards = parseCSV(t.replace(/^﻿/, ""));
-    if (!load()) start(true); else render();
+    items = parseCSV(t.replace(/^﻿/, ""));
+    if (!load()) start(); else render();
   })
   .catch(() => {
-    $("q").innerHTML = '<span class="error">Kartlar yüklenemedi.</span>';
+    $("q").innerHTML = '<span class="error">Sorular yüklenemedi.</span>';
   });
 </script>
 </body>
