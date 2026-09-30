@@ -115,7 +115,12 @@
     border: none; background: var(--accent); color: #fff; padding: 13px 14px; border-radius: 12px; cursor: pointer;
   }
   @media (prefers-color-scheme: dark) { button.primary { color: #10152b; } }
-  button.primary[hidden] { display: none; }
+  button.primary[hidden], button.retry[hidden] { display: none; }
+  button.retry {
+    font: inherit; font-size: .95rem; font-weight: 600; width: 100%; margin-top: 10px;
+    border: 2px solid var(--bad); background: var(--surface); color: var(--bad);
+    padding: 11px 14px; border-radius: 12px; cursor: pointer;
+  }
 
   .nav { display: flex; justify-content: flex-end; margin-top: 14px; }
   .nav button {
@@ -169,10 +174,11 @@
     <div class="options" id="options"></div>
 
     <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <button class="retry" id="retryBtn" hidden>↻ Bu soruyu tekrar dene</button>
     <button class="primary" id="nextBtn" hidden>Sonraki soru →</button>
 
     <div class="nav"><button id="resetBtn">Baştan başla</button></div>
-    <p class="keys"><kbd>A</kbd> / <kbd>B</kbd> şık seç · <kbd>Enter</kbd> sonraki soru</p>
+    <p class="keys"><kbd>A</kbd> / <kbd>B</kbd> şık seç · <kbd>Enter</kbd> sonraki soru · <kbd>R</kbd> tekrar dene</p>
   </section>
 
   <section class="done" id="done">
@@ -186,7 +192,7 @@
 
 <script>
 const STORE = "yz-test-v1";
-let items = [], queue = [], good = 0, bad = 0, missed = [], answered = false;
+let items = [], queue = [], good = 0, bad = 0, missed = [], answered = false, currentIdx = -1;
 
 const $ = id => document.getElementById(id);
 
@@ -250,6 +256,7 @@ function render() {
   answered = false;
   $("feedback").className = "feedback";
   $("nextBtn").hidden = true;
+  $("retryBtn").hidden = true;
 
   if (!queue.length) {
     const total = items.length, first = total - missed.length;
@@ -287,6 +294,7 @@ function choose(btn) {
   if (answered) return;
   answered = true;
   const idx = queue[0], it = items[idx], ok = btn.dataset.ok === "1";
+  currentIdx = idx;
   const buttons = [...$("options").children];
   buttons.forEach(b => {
     b.disabled = true;
@@ -316,6 +324,7 @@ function choose(btn) {
     // Soruyu birkaç soru sonra tekrar sor
     const pos = Math.min(queue.length, 3 + Math.floor(Math.random() * 3));
     queue.splice(pos, 0, idx);
+    $("retryBtn").hidden = false;
   }
   stats();
   save();
@@ -324,6 +333,13 @@ function choose(btn) {
 }
 
 $("nextBtn").addEventListener("click", render);
+$("retryBtn").addEventListener("click", () => {
+  // Az önce yanlış cevaplanan soruyu sıranın başına al
+  const idx = queue.lastIndexOf(currentIdx);
+  if (idx > -1) queue.splice(idx, 1);
+  queue.unshift(currentIdx);
+  save(); render();
+});
 $("resetBtn").addEventListener("click", () => { if (confirm("İlerlemen sıfırlansın mı?")) start(); });
 $("restartBtn").addEventListener("click", start);
 document.addEventListener("keydown", e => {
@@ -333,6 +349,8 @@ document.addEventListener("keydown", e => {
     const i = (k === "a" || k === "1") ? 0 : 1;
     const b = $("options").children[i];
     if (b) choose(b);
+  } else if (answered && k === "r" && !$("retryBtn").hidden) {
+    $("retryBtn").click();
   } else if (answered && e.key === "Enter" && e.target !== $("nextBtn")) {
     e.preventDefault(); render();
   }

@@ -7,10 +7,10 @@ Yapay zekâ temel kavramları üzerine 60 soruluk iki şıklı test.
 ## Nasıl kullanılır
 - Her soruda iki şık var: biri doğru, biri yanlış. Doğru olanı seç.
 - Doğru seçersen **"Doğru!"** uyarısı çıkar.
-- Yanlış seçersen yanlış şıkkın **neden yanlış olduğu** açıklanır ve doğru cevap yeşille gösterilir. O soru birkaç soru sonra tekrar gelir.
+- Yanlış seçersen yanlış şıkkın **neden yanlış olduğu** açıklanır ve doğru cevap yeşille gösterilir. İstersen **"Bu soruyu tekrar dene"** ile hemen yeniden deneyebilirsin; denemezsen soru birkaç soru sonra kendiliğinden tekrar gelir.
 - Sonunda ilk denemede kaç soruyu doğru bildiğin gösterilir.
 - İlerleme tarayıcıda saklanır; sayfayı kapatıp açınca kaldığın yerden devam edersin.
-- Klavye: `A` / `B` şık seç · `Enter` sonraki soru
+- Klavye: `A` / `B` şık seç · `Enter` sonraki soru · `R` tekrar dene
 
 ## Soru eklemek / düzenlemek
 `sorular.csv` dosyasını düzenleyin. Her satırda 4 sütun var:
