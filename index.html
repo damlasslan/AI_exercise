@@ -196,6 +196,21 @@ let items = [], queue = [], good = 0, bad = 0, missed = [], answered = false, cu
 
 const $ = id => document.getElementById(id);
 
+// GoatCounter olayları (reklam engelleyici varsa sessizce atlanır)
+const pending = [];
+function flush() {
+  if (!(window.goatcounter && window.goatcounter.count)) return false;
+  while (pending.length) { try { window.goatcounter.count(pending.shift()); } catch (e) {} }
+  return true;
+}
+function track(path, title) {
+  pending.push({ path, title, event: true });
+  if (flush()) return;
+  // Sayaç betiği henüz yüklenmediyse 15 saniyeye kadar bekle
+  let tries = 0;
+  const t = setInterval(() => { if (flush() || ++tries > 30) clearInterval(t); }, 500);
+}
+
 function parseCSV(text) {
   const rows = []; let row = [], field = "", inQ = false;
   for (let i = 0; i < text.length; i++) {
@@ -240,6 +255,7 @@ function start() {
   queue = shuffle(items.map((_, i) => i));
   good = 0; bad = 0; missed = [];
   save(); render();
+  track("test-basladi", "Test başladı");
 }
 
 function stats() {
@@ -312,6 +328,11 @@ function choose(btn) {
     fb.append(title);
     good++;
     queue.shift();
+    if (!queue.length) {
+      const first = items.length - missed.length;
+      track("test-bitti", "Test bitti");
+      track("skor-" + first, "Skor (ilk deneme): " + first + "/" + items.length);
+    }
   } else {
     fb.className = "feedback show bad";
     title.textContent = "✗ Yanlış";
@@ -319,6 +340,7 @@ function choose(btn) {
     why.textContent = "Neden yanlış: " + it.why;
     fb.append(title, why);
     bad++;
+    track("yanlis-soru-" + (idx + 1), "Yanlış #" + (idx + 1) + ": " + it.q);
     if (!missed.includes(idx)) missed.push(idx);
     queue.shift();
     // Soruyu birkaç soru sonra tekrar sor
@@ -366,5 +388,7 @@ fetch("sorular.csv")
     $("q").innerHTML = '<span class="error">Sorular yüklenemedi.</span>';
   });
 </script>
+<script data-goatcounter="https://aiexercise-damlahoca.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
