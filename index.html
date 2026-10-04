@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Yapay Zekâ Kartları</title>
+<title>Yapay Zekâ Egzersizleri</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -144,6 +144,24 @@
   .done .score { font-size: 2.4rem; font-weight: 700; color: var(--good); margin: 8px 0; }
   .error { color: var(--bad); }
 
+  [hidden] { display: none !important; }
+  .back { display: inline-block; margin-bottom: 10px; font-size: .88rem; color: var(--accent); text-decoration: none; }
+  .back:hover { text-decoration: underline; }
+  .menu { display: grid; gap: 12px; margin-top: 20px; }
+  .topic {
+    display: block; text-decoration: none; color: var(--text);
+    background: var(--surface); border: 2px solid var(--line); border-radius: 16px;
+    box-shadow: var(--shadow); padding: 20px 22px;
+    transition: border-color .15s ease, transform .08s ease;
+  }
+  .topic:hover { border-color: var(--accent); }
+  .topic:active { transform: scale(.99); }
+  .topic .t { font-size: 1.12rem; font-weight: 700; margin-bottom: 4px; }
+  .topic .d { color: var(--muted); font-size: .92rem; line-height: 1.45; }
+  .topic .p { margin-top: 12px; font-size: .85rem; font-weight: 600; color: var(--accent); }
+  .topic .p.fin { color: var(--good); }
+  .done a { display: inline-block; margin-top: 14px; font-size: .9rem; color: var(--accent); }
+
   @media (max-width: 480px) {
     .q { font-size: 1.1rem; }
     .opt { font-size: .95rem; padding: 12px 14px; }
@@ -153,10 +171,14 @@
 <body>
 <main>
   <header>
-    <h1>Yapay Zekâ Kartları</h1>
-    <p class="sub">Her soruda iki cevap var, doğru olanı seç. Yanlış bildiğin sorular birkaç soru sonra tekrar gelir.</p>
+    <a class="back" id="backLink" href="./" hidden>← Tüm egzersizler</a>
+    <h1 id="title">Yapay Zekâ Egzersizleri</h1>
+    <p class="sub" id="sub">Çalışmak istediğin konuyu seç.</p>
   </header>
 
+  <nav class="menu" id="menu" hidden></nav>
+
+  <div id="quiz" hidden>
   <div class="stats">
     <span class="pill">Kalan <b id="sLeft">0</b></span>
     <span class="pill good">Doğru <b id="sGood">0</b></span>
@@ -187,11 +209,21 @@
     <div class="score" id="score"></div>
     <p id="doneText"></p>
     <button class="primary" id="restartBtn" style="max-width:260px">Tekrar çöz</button>
+    <br><a href="./">← Tüm egzersizler</a>
   </section>
+  </div>
 </main>
 
 <script>
-const STORE = "yz-test-v1";
+// Yeni konu eklemek için buraya bir satır ve depoya bir CSV dosyası ekleyin
+const TOPICS = [
+  { id: "temel", title: "Yapay Zekâ Temel Kavramlar", file: "sorular.csv", store: "yz-test-v1", ev: "",
+    desc: "Zekâ, yapay zekâ, makine öğrenmesi, istem (prompt) ve beceriler." },
+  { id: "hci", title: "YZ ve İnsan-Makine Etkileşimi", file: "sorular-hci.csv", store: "yz-test-hci-v1", ev: "hci-",
+    desc: "Arayüz, kullanıcı deneyimi, bilişsel yük, Human-in-the-Loop ve etkileşim döngüsü." },
+];
+const topic = TOPICS.find(t => t.id === new URLSearchParams(location.search).get("konu"));
+const STORE = topic ? topic.store : "";
 let items = [], queue = [], good = 0, bad = 0, missed = [], answered = false, currentIdx = -1;
 
 const $ = id => document.getElementById(id);
@@ -204,7 +236,7 @@ function flush() {
   return true;
 }
 function track(path, title) {
-  pending.push({ path, title, event: true });
+  pending.push({ path: topic.ev + path, title: (topic.ev ? "[" + topic.title + "] " : "") + title, event: true });
   if (flush()) return;
   // Sayaç betiği henüz yüklenmediyse 15 saniyeye kadar bekle
   let tries = 0;
@@ -365,7 +397,7 @@ $("retryBtn").addEventListener("click", () => {
 $("resetBtn").addEventListener("click", () => { if (confirm("İlerlemen sıfırlansın mı?")) start(); });
 $("restartBtn").addEventListener("click", start);
 document.addEventListener("keydown", e => {
-  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  if (!topic || e.ctrlKey || e.metaKey || e.altKey) return;
   const k = e.key.toLowerCase();
   if (!answered && (k === "a" || k === "b" || k === "1" || k === "2")) {
     const i = (k === "a" || k === "1") ? 0 : 1;
@@ -378,15 +410,46 @@ document.addEventListener("keydown", e => {
   }
 });
 
-fetch("sorular.csv")
-  .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
-  .then(t => {
-    items = parseCSV(t.replace(/^﻿/, ""));
-    if (!load()) start(); else render();
-  })
-  .catch(() => {
-    $("q").innerHTML = '<span class="error">Sorular yüklenemedi.</span>';
+function showMenu() {
+  const menu = $("menu");
+  TOPICS.forEach(t => {
+    const a = document.createElement("a");
+    a.className = "topic"; a.href = "?konu=" + t.id;
+    const ti = document.createElement("div"); ti.className = "t"; ti.textContent = t.title;
+    const d = document.createElement("div"); d.className = "d"; d.textContent = t.desc;
+    const p = document.createElement("div"); p.className = "p"; p.textContent = "Başla →";
+    try {
+      const st = JSON.parse(localStorage.getItem(t.store));
+      if (st && Array.isArray(st.queue)) {
+        const doneN = st.n - st.queue.length;
+        if (!st.queue.length) { p.textContent = "✓ Tamamlandı · tekrar çöz →"; p.classList.add("fin"); }
+        else if (doneN > 0 || st.bad > 0) p.textContent = `Devam et → (${doneN} / ${st.n})`;
+      }
+    } catch (e) {}
+    a.append(ti, d, p);
+    menu.appendChild(a);
   });
+  menu.hidden = false;
+}
+
+if (!topic) {
+  showMenu();
+} else {
+  document.title = topic.title;
+  $("title").textContent = topic.title;
+  $("sub").textContent = "Her soruda iki cevap var, doğru olanı seç. Yanlış bildiğin sorular birkaç soru sonra tekrar gelir.";
+  $("backLink").hidden = false;
+  $("quiz").hidden = false;
+  fetch(topic.file)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(t => {
+      items = parseCSV(t.replace(/^\uFEFF/, ""));
+      if (!load()) start(); else render();
+    })
+    .catch(() => {
+      $("q").innerHTML = '<span class="error">Sorular yüklenemedi.</span>';
+    });
+}
 </script>
 <script data-goatcounter="https://aiexercise-damlahoca.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
