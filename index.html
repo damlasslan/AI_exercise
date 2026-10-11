@@ -226,6 +226,8 @@ const TOPICS = [
     desc: "Zekâ, yapay zekâ, makine öğrenmesi, istem (prompt) ve beceriler." },
   { id: "hci", title: "YZ ve İnsan-Makine Etkileşimi", file: "sorular-hci.csv", store: "yz-test-hci-v1", ev: "hci-",
     desc: "Arayüz, kullanıcı deneyimi, bilişsel yük, Human-in-the-Loop ve etkileşim döngüsü." },
+  { id: "prompt", title: "Prompt Mühendisliği", file: "sorular-prompt.csv", store: "yz-test-prompt-v1", ev: "prompt-",
+    desc: "Rol, bağlam, görev ve kısıt; 4 adımlı prompt kurgusu ve tersine mühendislik." },
 ];
 const topic = TOPICS.find(t => t.id === new URLSearchParams(location.search).get("konu"));
 const STORE = topic ? topic.store : "";
