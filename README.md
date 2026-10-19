@@ -9,6 +9,7 @@ Yapay zekâ dersi için iki şıklı alıştırma testleri.
 | Yapay Zekâ Temel Kavramlar | 60 | https://damlasslan.github.io/AI_exercise/?konu=temel | `sorular.csv` |
 | YZ ve İnsan-Makine Etkileşimi | 55 | https://damlasslan.github.io/AI_exercise/?konu=hci | `sorular-hci.csv` |
 | Prompt Mühendisliği | 52 | https://damlasslan.github.io/AI_exercise/?konu=prompt | `sorular-prompt.csv` |
+| YZ ile Bilgi Yönetimi | 50 | https://damlasslan.github.io/AI_exercise/?konu=bilgi | `sorular-bilgi.csv` |
 
 ## Nasıl kullanılır
 - Her soruda iki şık var: biri doğru, biri yanlış. Doğru olanı seç.
